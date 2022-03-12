@@ -51,6 +51,10 @@ const shopRatingModelSchema: ModelAttributes<ShopRatingModel, ShopRatingAttribut
     score: {
         type: DataTypes.TINYINT.UNSIGNED,
         allowNull: false,
+        validate: {
+            min: 1,
+            max: 5
+        }
     },
     comment: {
         type: DataTypes.TEXT,
@@ -84,8 +88,7 @@ ShopRatingModel.belongsTo(UserModel, {
 });
 ShopModel.hasMany(ShopRatingModel, {
     as: "ratings",
-    foreignKey: "shop_id",
-    onDelete: "CASCADE"
+    foreignKey: "shop_id"
 });
 ShopRatingModel.belongsTo(ShopModel, {
     as: "shop",
@@ -94,12 +97,14 @@ ShopRatingModel.belongsTo(ShopModel, {
 UserModel.belongsToMany(ShopModel, {
     through: ShopRatingModel,
     foreignKey: "user_id",
-    otherKey: "shop_id"
+    otherKey: "shop_id",
+    as: "rated_shops"
 });
 ShopModel.belongsToMany(UserModel, {
     through: ShopRatingModel,
     foreignKey: "shop_id",
-    otherKey: "user_id"
+    otherKey: "user_id",
+    as: "raters"
 });
 
 export default ShopRatingModel;
