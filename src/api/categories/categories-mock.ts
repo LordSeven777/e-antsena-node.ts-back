@@ -16,7 +16,7 @@ const categoriesMock: CategoryAttributes[] = [
     },
     {
         category_id: "hardware",
-        label: "hardware"
+        label: "Hardware"
     },
     {
         category_id: "art",
