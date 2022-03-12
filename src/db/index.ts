@@ -1,17 +1,13 @@
+import { SyncOptions } from "sequelize";
+
 // Sequelize database connection instance
 import sequelize from "./connection";
 
-// The models syncer
-import syncModelsWithDb from "./syncing";
-
-// Interface for the synchronization option
-interface SyncOption {
-    force?: boolean;
-    alter?: boolean;
-}
+// The tables seeder
+import seedTables from "./seeding";
 
 // Bootstraps the database setups
-const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOption = { force: false }) => {
+const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOptions = { force: false }) => {
     // Authenticating with the database
     try {
         await sequelize.authenticate();
@@ -23,14 +19,24 @@ const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOption 
     }
 
     if (syncOption?.force || syncOption?.alter) {
-        // Syncing with the database
+        // Syncing all models with the database
         try {
-            await syncModelsWithDb(syncOption);
+            await sequelize.sync(syncOption);
             console.log('Resynced with the MySQL database ...');
         }
         catch (error: any) {
             console.log('Failed to resync with MySQL database ...');
             console.log(error.message);  
+        }
+
+        // Seeding all tables
+        try {
+            await seedTables();
+            console.log("Seeded all tables ...");    
+        }
+        catch (error: any) {
+            console.log("Failed to seed all tables ...");
+            console.log(error.message);
         }
     }
 }
