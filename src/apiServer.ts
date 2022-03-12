@@ -10,7 +10,7 @@ import bootstrapDb from "./db";
 const server = http.createServer(app);
 
 // Bootstrapping database setups
-bootstrapDb(false, { force: true });
+bootstrapDb(true, { force: true });
 
 // Listening to a port
 const PORT: number | string = process.env.PORT || 5000;
