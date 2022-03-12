@@ -93,7 +93,10 @@ ShopModel.init(shopModelSchema, {
 });
 
 // Associating with the user model
-UserModel.hasOne(ShopModel);
+UserModel.hasOne(ShopModel, {
+    foreignKey: "owner_id",
+    as: "shop"
+});
 ShopModel.belongsTo(UserModel, {
     foreignKey: "owner_id",
     as: "owner"
