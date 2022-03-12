@@ -9,7 +9,7 @@ interface UserAttributes {
     firstname: string;
     lastname: string;
     gender: string;
-    photo_url: string;
+    photo_url: string | null;
     email: string;
     password: string;
     joined_at: string;
@@ -25,7 +25,7 @@ class UserModel extends Model<UserAttributes, UserCreationAttributes> implements
     public firstname!: string;
     public lastname!: string;
     public gender!: string;
-    public photo_url!: string;
+    public photo_url!: string | null;
     public email!: string;
     public password!: string;
     public joined_at!: string;
@@ -40,15 +40,15 @@ const userModelSchema = {
         autoIncrement: true
     },
     firstname: {
-        type: DataTypes.STRING(30),
-        allowNull: false
-    },
-    lastname: {
         type: DataTypes.STRING(50),
         allowNull: false
     },
+    lastname: {
+        type: DataTypes.STRING(30),
+        allowNull: false
+    },
     gender: {
-        type: DataTypes.ENUM('m', 'f'),
+        type: DataTypes.ENUM('M', 'F'),
         allowNull: false
     },
     photo_url: {
