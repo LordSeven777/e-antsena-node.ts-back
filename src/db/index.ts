@@ -7,7 +7,7 @@ import sequelize from "./connection";
 import seedTables from "./seeding";
 
 // Bootstraps the database setups
-const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOptions = { force: false }) => {
+const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOptions | undefined = { force: false }) => {
     // Authenticating with the database
     try {
         await sequelize.authenticate();
@@ -26,17 +26,21 @@ const bootstrapDb = async (withSeeding: boolean = false, syncOption: SyncOptions
         }
         catch (error: any) {
             console.log('Failed to resync with MySQL database ...');
-            console.log(error.message);  
+            console.log(error.message);
+            return;
         }
 
-        // Seeding all tables
-        try {
-            await seedTables();
-            console.log("Seeded all tables ...");    
-        }
-        catch (error: any) {
-            console.log("Failed to seed all tables ...");
-            console.log(error.message);
+        if (withSeeding) {
+            // Seeding all tables
+            try {
+                await seedTables();
+                console.log("Seeded all tables ...");    
+            }
+            catch (error: any) {
+                console.log("Failed to seed all tables ...");
+                console.log(error.message);
+                return;
+            }
         }
     }
 }
