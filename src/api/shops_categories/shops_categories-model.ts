@@ -64,13 +64,13 @@ ShopsCategoriesModel.belongsTo(CategoryModel, {
 });
 ShopModel.belongsToMany(CategoryModel, {
     through: ShopsCategoriesModel,
-    as: "shops",
+    as: "categories",
     foreignKey: "shop_id",
     otherKey: "category_id"
 });
 CategoryModel.belongsToMany(ShopModel, {
     through: ShopsCategoriesModel,
-    as: "categories",
+    as: "shops",
     foreignKey: "category_id",
     otherKey: "shop_id"
 });
