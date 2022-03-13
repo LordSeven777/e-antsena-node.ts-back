@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "apiDev": "nodemon src/apiServer.ts",
+    "dev": "nodemon src/server.ts",
     "build": "tsc -p ."
   },
   "keywords": [],
