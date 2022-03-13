@@ -33,6 +33,22 @@ const categoriesMock: CategoryAttributes[] = [
     {
         category_id: "handmade-works",
         label: "Handmade works"   
+    },
+    {
+        category_id: "laptop",
+        label: "Laptop"
+    },
+    {
+        category_id: "online-course",
+        label: "Online course"
+    },
+    {
+        category_id: "drawing",
+        label: "Drawing"
+    },
+    {
+        category_id: "photography",
+        label: "Photography"
     }
 ]
 
