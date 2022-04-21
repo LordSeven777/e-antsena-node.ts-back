@@ -9,6 +9,7 @@ import { ProductsCategoriesModel, productsCategoriesMock } from "../api/products
 import { ProductPhotoModel, productPhotosMock } from "../api/product_photos";
 import { ProductRatingModel, productRatingsMock } from "../api/product_ratings";
 import { OrderModel, ordersMock } from "../api/orders";
+import { OrderItemModel, orderItemsMock } from "../api/orderItems";
 
 // Seeds all tables with mock data
 const seedTables = async () => {
@@ -22,6 +23,7 @@ const seedTables = async () => {
     await ProductPhotoModel.bulkCreate(productPhotosMock);
     await ProductRatingModel.bulkCreate(productRatingsMock);
     await OrderModel.bulkCreate(ordersMock);
+    await OrderItemModel.bulkCreate(orderItemsMock);
 }
 
 export default seedTables;
