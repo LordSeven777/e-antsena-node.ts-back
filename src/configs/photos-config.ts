@@ -1,24 +1,30 @@
 import path from "path";
 
+// Interface for a resource photo config attributes
+interface PhotoConfigAttributes {
+    urlPath: string;
+    storagePath: string;
+}
+
 // Class for a ressource's photo config
-class PhotoConfig {
-    readonly baseURL!: string;
+class PhotoConfig implements PhotoConfigAttributes {
+    readonly urlPath!: string;
     readonly storagePath!: string;
 
-    constructor(baseURL: string, storagePath: string) {
-        this.baseURL = baseURL;
-        this.storagePath = storagePath;
+    constructor(params: PhotoConfigAttributes) {
+        this.urlPath = params.urlPath;
+        this.storagePath = params.storagePath;
     }
 
-    getFullURL(filename: string): string {
-        return `${this.baseURL}${filename}`;
+    getFileURL(filename: string): string {
+        return `${this.urlPath}${filename}`;
     }
 }
 
 // Product photos' config
-const productPhotosConfig: PhotoConfig = new PhotoConfig(
-    "/public/products/", 
-    path.join("../", "static", "products")
-);
+const productPhotosConfig: PhotoConfig = new PhotoConfig({
+    urlPath: "/public/products/", 
+    storagePath: path.join("../", "static", "products")
+});
 
 export { productPhotosConfig };
