@@ -1,10 +1,12 @@
+import { UserCreationAttributes } from "./user-model";
+
 // Mock data for users
-const usersMock = [
+const usersMock: UserCreationAttributes[] = [
     {
         firstname: "Tolojanahary Fenomanantsoa",
         lastname: "RABEFALY",
         gender: "M",
-        photo_url: null,
+        photoPath: null,
         email: "tolotor@yahoo.fr",
         password: "ghyuhgfjidskbhgniuhgfhg",
         role: "super_admin"
@@ -13,7 +15,7 @@ const usersMock = [
         firstname: "Océane Tsiky Nofy",
         lastname: "RAKOTOMAVO",
         gender: "F",
-        photo_url: null,
+        photoPath: null,
         email: "oceane_rak@gmail.com",
         password: "uyighrbgfdgbrnogjhofdig",
         role: "basic"
@@ -22,7 +24,7 @@ const usersMock = [
         firstname: "Miaramanjaka Satu",
         lastname: "RAMARIJAONA",
         gender: "M",
-        photo_url: null,
+        photoPath: null,
         email: "miara_satu@gmail.com",
         password: "uhgeirbiugbfjkgbisufgjkfdsgbkfg",
         role: "basic"

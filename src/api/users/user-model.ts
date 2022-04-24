@@ -1,40 +1,42 @@
-import { Model, Optional, DataTypes } from "sequelize";
+import { Model, Optional, DataTypes, ModelAttributes } from "sequelize";
 
 // Sequelize database connection instance
 import sequelize from "../../db/connection";
 
 // Interface for the user attributes
 interface UserAttributes {
-    user_id: number;
+    userId: number;
     firstname: string;
     lastname: string;
     gender: string;
-    photo_url: string | null;
+    photoPath: string | null;
     email: string;
     password: string;
-    joined_at: string;
     role: string;
 }
 
 // User attributes at creation time
-interface UserCreationAttributes extends Optional<UserAttributes, "user_id" | "photo_url" | "joined_at" | "role"> {}
+interface UserCreationAttributes extends Optional<UserAttributes, "userId" | "photoPath" | "role"> {}
 
 // Class for the user model
 class UserModel extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-    public user_id!: number;
+    public userId!: number;
     public firstname!: string;
     public lastname!: string;
     public gender!: string;
-    public photo_url!: string | null;
+    public photoPath!: string | null;
     public email!: string;
     public password!: string;
-    public joined_at!: string;
     public role!: string;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the the user model schema
-const userModelSchema = {
-    user_id: {
+const userModelSchema: ModelAttributes<UserModel, UserAttributes> = {
+    userId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         autoIncrement: true
@@ -51,7 +53,7 @@ const userModelSchema = {
         type: DataTypes.ENUM('M', 'F'),
         allowNull: false
     },
-    photo_url: {
+    photoPath: {
         type: DataTypes.STRING(255),
     },
     email: {
@@ -61,11 +63,6 @@ const userModelSchema = {
     password: {
         type: DataTypes.STRING(255),
         allowNull: false
-    },
-    joined_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
     },
     role: {
         type: DataTypes.ENUM('basic', 'super_admin'),
@@ -77,7 +74,7 @@ UserModel.init(userModelSchema, {
     sequelize,
     tableName: "users",
     modelName: "User",
-    timestamps: false
+    underscored: true
 });
 
 export default UserModel;
