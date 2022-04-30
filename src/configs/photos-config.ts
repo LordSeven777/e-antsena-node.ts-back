@@ -23,8 +23,8 @@ class PhotoConfig implements PhotoConfigAttributes {
 
 // Product photos' config
 const productPhotosConfig: PhotoConfig = new PhotoConfig({
-    urlPath: "/public/products/", 
-    storagePath: path.join("../", "static", "products")
+    urlPath: "/public/images/products/",
+    storagePath: path.join(__dirname, "../", "../", "static", "products")
 });
 
 export { productPhotosConfig };
