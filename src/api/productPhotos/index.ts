@@ -3,10 +3,10 @@ import ProductPhotoModel, {
     ProductPhotoAttributes,
     ProductPhotoCreationAttributes,
     productPhotoModelSchema
-} from "./product_photo-model";
+} from "./productPhoto-model";
 
 // Mock data for product photos
-import productPhotosMock from "./product_photos-mock";
+import productPhotosMock from "./productPhotos-mock";
 
 export {
     ProductPhotoModel,

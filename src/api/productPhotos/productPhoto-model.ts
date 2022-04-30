@@ -8,47 +8,44 @@ import { ProductModel } from "../products";
 
 // Interface for the product photo attributes
 interface ProductPhotoAttributes {
-    photo_id: number;
-    url: string;
-    is_main: boolean;
-    added_at: string;
-    product_id: number;
+    photoId: number;
+    path: string;
+    isMain: boolean;
+    productId: number;
 }
 
 // Interface for the product attributes at creation time
-interface ProductPhotoCreationAttributes extends Optional<ProductPhotoAttributes, "photo_id" | "is_main" | "added_at"> {}
+interface ProductPhotoCreationAttributes extends Optional<ProductPhotoAttributes, "photoId" | "isMain"> {}
 
 // Class for the product photo model
 class ProductPhotoModel extends Model<ProductPhotoAttributes, ProductPhotoCreationAttributes> implements ProductPhotoAttributes {
-    public photo_id!: number;
-    public url!: string;
-    public is_main!: boolean;
-    public readonly added_at!: string;
-    public product_id!: number;
+    public photoId!: number;
+    public path!: string;
+    public isMain!: boolean;
+    public productId!: number;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the product model schema
 const productPhotoModelSchema: ModelAttributes<ProductPhotoModel, ProductPhotoAttributes> = {
-    photo_id: {
+    photoId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         autoIncrement: true
     },
-    url: {
+    path: {
         type: DataTypes.STRING(255),
         allowNull: false
     },
-    is_main: {
+    isMain: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
     },
-    added_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    product_id: {
+    productId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         allowNull: false,
         references: {
@@ -61,7 +58,7 @@ ProductPhotoModel.init(productPhotoModelSchema, {
     sequelize,
     tableName: "products_photos",
     modelName: "ProductPhoto",
-    timestamps: false
+    underscored: true
 });
 
 // Associating with the product model
