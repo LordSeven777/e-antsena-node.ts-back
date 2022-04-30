@@ -10,22 +10,24 @@ import { ProductModel } from "../products";
 
 // Attributes for an order item
 interface OrderItemAttributes {
+    itemId: number;
     userId: number;
     productId: number;
-    orderId: number;
+    orderId: number | null;
     label: string;
     price: number;
     quantity: number;
 }
 
 // Attributes for an order item at creation time
-interface OrderItemCreationAttributes extends Optional<OrderItemAttributes, "orderId" | "label" | "price" | "quantity"> {}
+interface OrderItemCreationAttributes extends Optional<OrderItemAttributes, "itemId" | "orderId" | "label" | "price" | "quantity"> {}
 
 // Class for the order item model
 class OrderItemModel extends Model<OrderItemAttributes, OrderItemCreationAttributes> implements OrderItemAttributes {
+    public itemId!: number;
     public userId!: number;
     public productId!: number;
-    public orderId!: number;
+    public orderId!: number | null;
     public label!: string;
     public price!: number;
     public quantity!: number;
@@ -37,24 +39,37 @@ class OrderItemModel extends Model<OrderItemAttributes, OrderItemCreationAttribu
 
 // Order item model initialization
 const orderItemModelSchema: ModelAttributes<OrderItemModel, OrderItemAttributes> = {
-    userId: {
-        field: "user_id",
+    itemId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
-        unique: "UQ_orderItems_users_products_orders"
+        allowNull: false,
+        autoIncrement: true
+    },
+    userId: {
+        type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
+        unique: "UQ_orderItems_users_products_orders",
+        references: {
+            model: "users",
+            key: "user_id"
+        }
     },
     productId: {
-        field: "product_id",
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
-        primaryKey: true,
-        unique: "UQ_orderItems_users_products_orders"
+        unique: "UQ_orderItems_users_products_orders",
+        references: {
+            model: "products",
+            key: "product_id"
+        }
     },
     orderId: {
-        field: "order_id",
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         unique: "UQ_orderItems_users_products_orders",
         allowNull: true, // When null, the order item is in the shopping cart
-        defaultValue: null
+        defaultValue: null,
+        references: {
+            model: "orders",
+            key: "order_id"
+        }
     },
     label: {
         type: DataTypes.STRING(60),
@@ -72,7 +87,8 @@ const orderItemModelSchema: ModelAttributes<OrderItemModel, OrderItemAttributes>
 OrderItemModel.init(orderItemModelSchema, {
     sequelize,
     tableName: "order_items",
-    modelName: "OrderItem"
+    modelName: "OrderItem",
+    underscored: true
 });
 
 // Associating the order item model with the user, shop, and order models
