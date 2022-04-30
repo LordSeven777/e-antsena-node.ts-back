@@ -5,19 +5,19 @@ import sequelize from "../../db/connection";
 
 // Interface for the category attributes
 interface CategoryAttributes {
-    category_id: string;
+    categoryId: string;
     label: string;
 }
 
 // Class for the category model
 class CategoryModel extends Model<CategoryAttributes> implements CategoryAttributes {
-    public category_id!: string;
+    public categoryId!: string;
     public label!: string;
 }
 
 // Initializing the category model schema
 const categoryModelSchema: ModelAttributes<CategoryModel, CategoryAttributes> = {
-    category_id: {
+    categoryId: {
         type: DataTypes.STRING(30),
         primaryKey: true
     },
@@ -30,7 +30,8 @@ CategoryModel.init(categoryModelSchema, {
     sequelize,
     tableName: "categories",
     modelName: "Category",
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 
 export default CategoryModel;

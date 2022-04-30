@@ -3,51 +3,51 @@ import { CategoryAttributes } from "./category-model";
 // Mock data for the categories
 const categoriesMock: CategoryAttributes[] = [
     {
-        category_id: "technology",
+        categoryId: "technology",
         label: "Technology"
     },
     {
-        category_id: "software",
+        categoryId: "software",
         label: "Software"
     },
     {
-        category_id: "it",
+        categoryId: "it",
         label: "IT"
     },
     {
-        category_id: "hardware",
+        categoryId: "hardware",
         label: "Hardware"
     },
     {
-        category_id: "art",
+        categoryId: "art",
         label: "Art"   
     },
     {
-        category_id: "painting",
+        categoryId: "painting",
         label: "Painting"   
     },
     {
-        category_id: "graphical-pictures",
+        categoryId: "graphical-pictures",
         label: "Graphical pictures"   
     },
     {
-        category_id: "handmade-works",
+        categoryId: "handmade-works",
         label: "Handmade works"   
     },
     {
-        category_id: "laptop",
+        categoryId: "laptop",
         label: "Laptop"
     },
     {
-        category_id: "online-course",
+        categoryId: "online-course",
         label: "Online course"
     },
     {
-        category_id: "drawing",
+        categoryId: "drawing",
         label: "Drawing"
     },
     {
-        category_id: "photography",
+        categoryId: "photography",
         label: "Photography"
     }
 ]
