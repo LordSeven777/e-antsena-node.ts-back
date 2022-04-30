@@ -7,7 +7,7 @@ import { Shop_Category_model, shops_categories_mock } from "../api/shops_categor
 import { ProductModel, productsMock } from "../api/products";
 import { Product_Category_model, products_categories_mock } from "../api/products_categories";
 import { ProductPhotoModel, productPhotosMock } from "../api/productPhotos";
-import { ProductRatingModel, productRatingsMock } from "../api/product_ratings";
+import { ProductRatingModel, productRatingsMock } from "../api/productRatings";
 import { OrderModel, ordersMock } from "../api/orders";
 import { OrderItemModel, orderItemsMock } from "../api/orderItems";
 

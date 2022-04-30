@@ -1,4 +1,4 @@
-import { ProductRatingCreationAttributes } from "./product_rating-model";
+import { ProductRatingCreationAttributes } from "./productRating-model";
 
 // Mock data for product ratings
 const productRatingsMock: ProductRatingCreationAttributes[] = [
