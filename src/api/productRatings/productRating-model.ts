@@ -9,30 +9,30 @@ import { ProductModel } from "../products";
 
 // Interface for a product rating attributes
 interface ProductRatingAttributes {
-    user_id: number;
-    product_id: number;
+    userId: number;
+    productId: number;
     score: number;
     comment: string | null;
-    created_at: string;
-    updated_at: string;
 };
 
 // Interface for a product rating attributes at creation time
-interface ProductRatingCreationAttributes extends Optional<ProductRatingAttributes, "created_at" | "updated_at"> {}
+interface ProductRatingCreationAttributes extends Optional<ProductRatingAttributes, "comment"> {}
 
 // Class for the product rating model
 class ProductRatingModel extends Model<ProductRatingAttributes, ProductRatingCreationAttributes> implements ProductRatingAttributes {
-    public user_id!: number;
-    public product_id!: number;
+    public userId!: number;
+    public productId!: number;
     public score!: number;
     public comment!: string | null;
-    public created_at!: string;
-    public updated_at!: string;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the product photo rating schema
 const productRatingModelSchema: ModelAttributes<ProductRatingModel, ProductRatingAttributes> = {
-    user_id: {
+    userId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -40,7 +40,7 @@ const productRatingModelSchema: ModelAttributes<ProductRatingModel, ProductRatin
             key: "user_id"
         }
     },
-    product_id: {
+    productId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -58,28 +58,18 @@ const productRatingModelSchema: ModelAttributes<ProductRatingModel, ProductRatin
     },
     comment: {
         type: DataTypes.TEXT,
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
+    }
 };
 ProductRatingModel.init(productRatingModelSchema, {
     sequelize,
     tableName: "products_ratings",
     modelName: "ProductRating",
-    timestamps: false
+    underscored: true
 });
 
 // Associating with the user model and product model
 UserModel.hasMany(ProductRatingModel, {
-    as: "product_ratings",
+    as: "productRatings",
     foreignKey: "user_id",
 });
 ProductRatingModel.belongsTo(UserModel, {
@@ -98,7 +88,7 @@ UserModel.belongsToMany(ProductModel, {
     through: ProductRatingModel,
     foreignKey: "user_id",
     otherKey: "product_id",
-    as: "rated_products"
+    as: "ratedProducts"
 });
 ProductModel.belongsToMany(UserModel, {
     through: ProductRatingModel,
