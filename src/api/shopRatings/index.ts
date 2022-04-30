@@ -3,10 +3,10 @@ import ShopRatingModel, {
     ShopRatingAttributes,
     ShopRatingCreationAttributes,
     shopRatingModelSchema
-} from "./shop-rating-model";
+} from "./shopRating-model";
 
 // Mock data for shop ratings
-import shopRatingsMock from "./shop-ratings-mock";
+import shopRatingsMock from "./shopRatings-mock";
 
 export {
     ShopRatingModel,

@@ -1,7 +1,7 @@
 // All models and mock data
 import { UserModel, usersMock } from "../api/users";
 import { ShopModel, shopsMock } from "../api/shops";
-import { ShopRatingModel, shopRatingsMock } from "../api/shop_ratings";
+import { ShopRatingModel, shopRatingsMock } from "../api/shopRatings";
 import { CategoryModel, categoriesMock } from "../api/categories";
 import { Shop_Category_model, shops_categories_mock } from "../api/shops_categories";
 import { ProductModel, productsMock } from "../api/products";

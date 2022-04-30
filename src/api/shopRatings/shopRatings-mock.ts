@@ -1,4 +1,4 @@
-import { ShopRatingCreationAttributes } from "./shop-rating-model";
+import { ShopRatingCreationAttributes } from "./shopRating-model";
 
 // Mock data for the shop ratings
 const shopRatingsMock: ShopRatingCreationAttributes[] = [
