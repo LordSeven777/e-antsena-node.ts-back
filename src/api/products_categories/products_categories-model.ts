@@ -6,23 +6,22 @@ import sequelize from "../../db/connection";
 // Other models
 import { ProductModel } from "../products";
 import { CategoryModel } from "../categories";
-import { UserModel } from "../users";
  
-// Interface for the product-category relation attributes
-interface ProductsCategoriesAttributes {
-    product_id: number;
-    category_id: string;
+// Interface for a product_category relation attributes
+interface Product_Category_attributes {
+    productId: number;
+    categoryId: string;
 }
 
-// Class for the product-category relation model
-class ProductsCategoriesModel extends Model<ProductsCategoriesAttributes> implements ProductsCategoriesAttributes {
-    public product_id!: number;
-    public category_id!: string;
+// Class for the product_category relation model
+class Product_Category_model extends Model<Product_Category_attributes> implements Product_Category_attributes {
+    public productId!: number;
+    public categoryId!: string;
 }
 
 // Initializing the product-category relation model schema
-const productsCategoriesModelSchema: ModelAttributes<ProductsCategoriesModel, ProductsCategoriesAttributes> = {
-    product_id: {
+const product_category_modelSchema: ModelAttributes<Product_Category_model, Product_Category_attributes> = {
+    productId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -30,7 +29,7 @@ const productsCategoriesModelSchema: ModelAttributes<ProductsCategoriesModel, Pr
             key: "product_id"
         }
     },
-    category_id: {
+    categoryId: {
         type: DataTypes.STRING(30),
         primaryKey: true,
         references: {
@@ -39,42 +38,27 @@ const productsCategoriesModelSchema: ModelAttributes<ProductsCategoriesModel, Pr
         }
     }
 }
-ProductsCategoriesModel.init(productsCategoriesModelSchema, {
+Product_Category_model.init(product_category_modelSchema, {
     sequelize,
     tableName: "products_categories",
-    modelName: "ProductsCategories",
-    timestamps: false
+    modelName: "Product_Category",
+    timestamps: false,
+    underscored: true
 });
 
 // Associating with the product model and the category model
-ProductModel.hasMany(ProductsCategoriesModel, {
-    as: "products_categories_rel",
-    foreignKey: "product_id"
-});
-ProductsCategoriesModel.belongsTo(ProductModel, {
-    as: "product",
-    foreignKey: "product_id"
-});
-CategoryModel.hasMany(ProductsCategoriesModel, {
-    as: "categories_products_rel",
-    foreignKey: "category_id"
-});
-ProductsCategoriesModel.hasMany(CategoryModel, {
-    as: "category",
-    foreignKey: "category_id"
-});
 ProductModel.belongsToMany(CategoryModel, {
-    through: ProductsCategoriesModel,
+    through: Product_Category_model,
     as: "categories",
     foreignKey: "product_id",
     otherKey: "category_id"
 });
 CategoryModel.belongsToMany(ProductModel, {
-    through: ProductsCategoriesModel,
+    through: Product_Category_model,
     as: "products",
     foreignKey: "category_id",
     otherKey: "product_id"
 });
 
-export default ProductsCategoriesModel;
-export { ProductsCategoriesAttributes, productsCategoriesModelSchema };
+export default Product_Category_model;
+export { Product_Category_attributes, product_category_modelSchema };

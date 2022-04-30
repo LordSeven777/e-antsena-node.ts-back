@@ -1,55 +1,55 @@
-import { ProductsCategoriesAttributes } from "./products_categories-model";
+import { Product_Category_attributes } from "./products_categories-model";
 
-// Mock data for the products-categories relations
-const productsCategoriesMock: ProductsCategoriesAttributes[] = [
+// Mock data for the products_categories relations
+const products_categories_mock: Product_Category_attributes[] = [
     {
-        product_id: 1,
-        category_id: "hardware"
+        productId: 1,
+        categoryId: "hardware"
     },
     {
-        product_id: 1,
-        category_id: "laptop"
+        productId: 1,
+        categoryId: "laptop"
     },
     {
-        product_id: 2,
-        category_id: "it"
+        productId: 2,
+        categoryId: "it"
     },
     {
-        product_id: 2,
-        category_id: "online-course"
+        productId: 2,
+        categoryId: "online-course"
     },
     {
-        product_id: 3,
-        category_id: "software"
+        productId: 3,
+        categoryId: "software"
     },
     {
-        product_id: 3,
-        category_id: "technology"
+        productId: 3,
+        categoryId: "technology"
     },
     {
-        product_id: 4,
-        category_id: "art"
+        productId: 4,
+        categoryId: "art"
     },
     {
-        product_id: 4,
-        category_id: "painting"
+        productId: 4,
+        categoryId: "painting"
     },
     {
-        product_id: 5,
-        category_id: "art"
+        productId: 5,
+        categoryId: "art"
     },
     {
-        product_id: 5,
-        category_id: "drawing"
+        productId: 5,
+        categoryId: "drawing"
     },
     {
-        product_id: 6,
-        category_id: "photography"
+        productId: 6,
+        categoryId: "photography"
     },
     {
-        product_id: 6,
-        category_id: "graphical-pictures"
+        productId: 6,
+        categoryId: "graphical-pictures"
     }
 ];
 
-export default productsCategoriesMock;
+export default products_categories_mock;

@@ -1,15 +1,15 @@
 // ProductsCategories model
-import ProductsCategoriesModel, { 
-    ProductsCategoriesAttributes,
-    productsCategoriesModelSchema
+import Product_Category_model, { 
+    Product_Category_attributes,
+    product_category_modelSchema
 } from "./products_categories-model";
 
 // Mock data for the products-categories relations
-import productsCategoriesMock from "./products_categories-mock";
+import products_categories_mock from "./products_categories-mock";
 
 export {
-    ProductsCategoriesModel,
-    ProductsCategoriesAttributes,
-    productsCategoriesModelSchema,
-    productsCategoriesMock
+    Product_Category_model,
+    Product_Category_attributes,
+    product_category_modelSchema,
+    products_categories_mock
 };

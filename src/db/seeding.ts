@@ -5,7 +5,7 @@ import { ShopRatingModel, shopRatingsMock } from "../api/shop_ratings";
 import { CategoryModel, categoriesMock } from "../api/categories";
 import { Shop_Category_model, shops_categories_mock } from "../api/shops_categories";
 import { ProductModel, productsMock } from "../api/products";
-import { ProductsCategoriesModel, productsCategoriesMock } from "../api/products_categories";
+import { Product_Category_model, products_categories_mock } from "../api/products_categories";
 import { ProductPhotoModel, productPhotosMock } from "../api/product_photos";
 import { ProductRatingModel, productRatingsMock } from "../api/product_ratings";
 import { OrderModel, ordersMock } from "../api/orders";
@@ -19,7 +19,7 @@ const seedTables = async () => {
     await CategoryModel.bulkCreate(categoriesMock);
     await Shop_Category_model.bulkCreate(shops_categories_mock);
     await ProductModel.bulkCreate(productsMock);
-    await ProductsCategoriesModel.bulkCreate(productsCategoriesMock);
+    await Product_Category_model.bulkCreate(products_categories_mock);
     await ProductPhotoModel.bulkCreate(productPhotosMock);
     await ProductRatingModel.bulkCreate(productRatingsMock);
     await OrderModel.bulkCreate(ordersMock);
