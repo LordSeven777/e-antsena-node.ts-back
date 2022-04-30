@@ -15,12 +15,15 @@ interface OrderCreationAttributes extends Optional<OrderAttributes, "orderId"> {
 // Class for the order model
 class OrderModel extends Model<OrderAttributes, OrderCreationAttributes> implements OrderAttributes {
     public orderId!: number;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initiliazing the order model schema
 const orderModelSchema: ModelAttributes<OrderModel, OrderAttributes> = {
     orderId: {
-        field: "order_id",
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         autoIncrement: true,
         primaryKey: true,
@@ -29,8 +32,9 @@ const orderModelSchema: ModelAttributes<OrderModel, OrderAttributes> = {
 OrderModel.init(orderModelSchema, {
     sequelize,
     tableName: "orders",
+    modelName: "Order",
     timestamps: true,
-    modelName: "Order"
+    underscored: true
 });
 
 export default OrderModel;
