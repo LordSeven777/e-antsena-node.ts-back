@@ -10,8 +10,8 @@ import bootstrapDb from "./db";
 const server = http.createServer(app);
 
 // Bootstrapping database setups
-bootstrapDb(true, { force: true });
+bootstrapDb();
 
 // Listening to a port
 const PORT: number | string = process.env.PORT || 5000;
-server.listen(PORT, () => { console.log(`API server running on port ${PORT} ...`); });
+server.listen(PORT, () => { console.log(`Server running on port ${PORT} ...`); });
