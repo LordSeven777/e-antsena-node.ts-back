@@ -33,6 +33,10 @@ class ShopModel extends Model<ShopAttributes, ShopCreationAttributes> implements
     public email!: string;
     public isOpen!: boolean;
     public ownerId!: number;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the the user model schema

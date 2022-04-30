@@ -31,6 +31,10 @@ class ProductModel extends Model<ProductAttributes, ProductCreationAttributes> i
     public forSale!: boolean;
     public quantity!: number;
     public shopId!: number;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the product model schema

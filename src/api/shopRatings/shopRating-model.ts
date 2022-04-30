@@ -24,6 +24,10 @@ class ShopRatingModel extends Model<ShopRatingAttributes, ShopRatingCreationAttr
     public shopId!: number;
     public score!: number;
     public comment!: string | null;
+
+    // Timestamps
+    public readonly createdAt!: Date;
+    public readonly updatedAt!: Date;
 }
 
 // Initializing the shop rating model schema
@@ -84,7 +88,7 @@ UserModel.belongsToMany(ShopModel, {
     through: ShopRatingModel,
     foreignKey: "user_id",
     otherKey: "shop_id",
-    as: "rated_shops"
+    as: "ratedShops"
 });
 ShopModel.belongsToMany(UserModel, {
     through: ShopRatingModel,
