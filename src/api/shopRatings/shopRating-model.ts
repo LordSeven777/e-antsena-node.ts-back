@@ -9,30 +9,26 @@ import { ShopModel } from "../shops";
 
 // Interface for the shop rating attributes
 interface ShopRatingAttributes {
-    user_id: number;
-    shop_id: number;
+    userId: number;
+    shopId: number;
     score: number;
     comment: string | null;
-    created_at: string;
-    updated_at: string;
 }
 
 // Interface for the shop rating attributes at creation time
-interface ShopRatingCreationAttributes extends Optional<ShopRatingAttributes, "comment" | "created_at" | "updated_at"> {}
+interface ShopRatingCreationAttributes extends Optional<ShopRatingAttributes, "comment"> {}
 
 // Class for the shop rating model
 class ShopRatingModel extends Model<ShopRatingAttributes, ShopRatingCreationAttributes> implements ShopRatingAttributes {
-    public user_id!: number;
-    public shop_id!: number;
+    public userId!: number;
+    public shopId!: number;
     public score!: number;
     public comment!: string | null;
-    public created_at!: string;
-    public updated_at!: string;
 }
 
 // Initializing the shop rating model schema
 const shopRatingModelSchema: ModelAttributes<ShopRatingModel, ShopRatingAttributes> = {
-    user_id: {
+    userId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -40,7 +36,7 @@ const shopRatingModelSchema: ModelAttributes<ShopRatingModel, ShopRatingAttribut
             key: "user_id"
         }
     },
-    shop_id: {
+    shopId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -58,23 +54,13 @@ const shopRatingModelSchema: ModelAttributes<ShopRatingModel, ShopRatingAttribut
     },
     comment: {
         type: DataTypes.TEXT,
-    },
-    created_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    updated_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
+    }
 };
 ShopRatingModel.init(shopRatingModelSchema, {
     sequelize,
     tableName: "shop_ratings",
     modelName: "ShopRating",
-    timestamps: false
+    underscored: true
 });
 
 // Associating with the user model and shop model
