@@ -1,15 +1,15 @@
-// ShopsCategories model
-import ShopsCategoriesModel, {
-    ShopsCategoriesAttributes,
-    shopsCategoriesModelSchema
+// Shop_Category model
+import Shop_Category_model, {
+    Shop_Category_attributes,
+    shop_category_modelSchema
 } from "./shops_categories-model";
 
 // Mock data for the shops_categories rel
-import shopsCategoriesMock from "./shops_categories-mock";
+import shops_categories_mock from "./shops_categories-mock";
 
 export {
-    ShopsCategoriesModel,
-    ShopsCategoriesAttributes,
-    shopsCategoriesModelSchema,
-    shopsCategoriesMock
+    Shop_Category_model,
+    Shop_Category_attributes,
+    shop_category_modelSchema,
+    shops_categories_mock
 };

@@ -1,39 +1,39 @@
-import { ShopsCategoriesAttributes } from "./shops_categories-model";
+import { Shop_Category_attributes } from "./shops_categories-model";
 
 // Mock data for the shops_categories relations
-const shopsCategoriesMock: ShopsCategoriesAttributes[] = [
+const shops_categories_mock: Shop_Category_attributes[] = [
     {
-        shop_id: 1,
-        category_id: "technology"
+        shopId: 1,
+        categoryId: "technology"
     },
     {
-        shop_id: 1,
-        category_id: "software"
+        shopId: 1,
+        categoryId: "software"
     },
     {
-        shop_id: 1,
-        category_id: "it"
+        shopId: 1,
+        categoryId: "it"
     },
     {
-        shop_id: 1,
-        category_id: "hardware"
+        shopId: 1,
+        categoryId: "hardware"
     },
     {
-        shop_id: 2,
-        category_id: "art"
+        shopId: 2,
+        categoryId: "art"
     },
     {
-        shop_id: 2,
-        category_id: "painting"
+        shopId: 2,
+        categoryId: "painting"
     },
     {
-        shop_id: 2,
-        category_id: "graphical-pictures"
+        shopId: 2,
+        categoryId: "graphical-pictures"
     },
     {
-        shop_id: 2,
-        category_id: "handmade-works"   
+        shopId: 2,
+        categoryId: "handmade-works"   
     }
 ];
 
-export default shopsCategoriesMock;
+export default shops_categories_mock;

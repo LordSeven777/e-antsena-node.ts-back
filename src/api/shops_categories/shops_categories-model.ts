@@ -7,21 +7,21 @@ import sequelize from "../../db/connection";
 import { CategoryModel } from "../categories";
 import { ShopModel } from "../shops";
 
-// Interface for the shops_categories attributes
-interface ShopsCategoriesAttributes {
-    category_id: string;
-    shop_id: number;
+// Interface for a shop_category attributes
+interface Shop_Category_attributes {
+    categoryId: string;
+    shopId: number;
 }
 
-// Class for the shops_categories model
-class ShopsCategoriesModel extends Model<ShopsCategoriesAttributes> implements ShopsCategoriesAttributes {
-    public category_id!: string;
-    public shop_id!: number;
+// Class for the Shop_Category model
+class Shop_Category_model extends Model<Shop_Category_attributes> implements Shop_Category_attributes {
+    public categoryId!: string;
+    public shopId!: number;
 }
 
 // Initializing the shops_categories model schema
-const shopsCategoriesModelSchema: ModelAttributes<ShopsCategoriesModel, ShopsCategoriesAttributes> = {
-    shop_id: {
+const shop_category_modelSchema: ModelAttributes<Shop_Category_model, Shop_Category_attributes> = {
+    shopId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         references: {
@@ -29,7 +29,7 @@ const shopsCategoriesModelSchema: ModelAttributes<ShopsCategoriesModel, ShopsCat
             key: "shop_id"
         }
     },
-    category_id: {
+    categoryId: {
         type: DataTypes.STRING(30),
         primaryKey: true,
         references: {
@@ -38,42 +38,27 @@ const shopsCategoriesModelSchema: ModelAttributes<ShopsCategoriesModel, ShopsCat
         }
     }
 }
-ShopsCategoriesModel.init(shopsCategoriesModelSchema, {
+Shop_Category_model.init(shop_category_modelSchema, {
     sequelize,
     tableName: "shops_categories",
-    modelName: "ShopsCategories",
-    timestamps: false
+    modelName: "Shop_Category",
+    timestamps: false,
+    underscored: true
 });
 
-// Associating with the shop model and category model
-ShopModel.hasMany(ShopsCategoriesModel, {
-    as: "shop_category_rel",
-    foreignKey: "shop_id"
-});
-ShopsCategoriesModel.belongsTo(ShopModel, {
-    as: "shop",
-    foreignKey: "shop_id"
-});
-CategoryModel.hasMany(ShopsCategoriesModel, {
-    as: "category_shop_rel",
-    foreignKey: "category_id"
-});
-ShopsCategoriesModel.belongsTo(CategoryModel, {
-    as: "category",
-    foreignKey: "category_id"
-});
+// Association with the shop and category models
 ShopModel.belongsToMany(CategoryModel, {
-    through: ShopsCategoriesModel,
+    through: Shop_Category_model,
     as: "categories",
     foreignKey: "shop_id",
     otherKey: "category_id"
 });
 CategoryModel.belongsToMany(ShopModel, {
-    through: ShopsCategoriesModel,
+    through: Shop_Category_model,
     as: "shops",
     foreignKey: "category_id",
     otherKey: "shop_id"
 });
 
-export default ShopsCategoriesModel;
-export { ShopsCategoriesAttributes, shopsCategoriesModelSchema };
+export default Shop_Category_model;
+export { Shop_Category_attributes, shop_category_modelSchema };
