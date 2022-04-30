@@ -8,36 +8,34 @@ import { ShopModel } from "../shops";
 
 // Interface for the product attributes
 interface ProductAttributes {
-    product_id: number;
+    productId: number;
     label: string;
     description: string;
-    photo_url: string;
+    photoPath: string;
     price: number;
-    is_for_sale: boolean;
+    forSale: boolean;
     quantity: number;
-    added_at: string;
-    shop_id: number;
+    shopId: number;
 }
 
 // Interface for the product attributes at creation time
-interface ProductCreationAttributes extends Optional<ProductAttributes, "product_id" | "is_for_sale" | "quantity" | "added_at"> {}
+interface ProductCreationAttributes extends Optional<ProductAttributes, "productId" | "forSale" | "quantity"> {}
 
 // Class for the product model
 class ProductModel extends Model<ProductAttributes, ProductCreationAttributes> implements ProductAttributes {
-    public product_id!: number;
+    public productId!: number;
     public label!: string;
     public description!: string;
-    public photo_url!: string;
+    public photoPath!: string;
     public price!: number;
-    public is_for_sale!: boolean;
+    public forSale!: boolean;
     public quantity!: number;
-    public readonly added_at!: string;
-    public shop_id!: number;
+    public shopId!: number;
 }
 
 // Initializing the product model schema
 const productModelSchema: ModelAttributes<ProductModel, ProductAttributes> = {
-    product_id: {
+    productId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         primaryKey: true,
         autoIncrement: true
@@ -50,7 +48,7 @@ const productModelSchema: ModelAttributes<ProductModel, ProductAttributes> = {
         type: DataTypes.TEXT,
         allowNull: false
     },
-    photo_url: {
+    photoPath: {
         type: DataTypes.STRING(255),
         allowNull: false
     },
@@ -63,17 +61,12 @@ const productModelSchema: ModelAttributes<ProductModel, ProductAttributes> = {
         allowNull: false,
         defaultValue: 0
     },
-    is_for_sale: {
+    forSale: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false
     },
-    added_at: {
-        type: DataTypes.DATE,
-        allowNull: false,
-        defaultValue: DataTypes.NOW
-    },
-    shop_id: {
+    shopId: {
         type: DataTypes.INTEGER.UNSIGNED.ZEROFILL,
         allowNull: false,
         references: {
@@ -86,7 +79,7 @@ ProductModel.init(productModelSchema, {
     sequelize,
     tableName: "products",
     modelName: "Product",
-    timestamps: false
+    underscored: true
 });
 
 // Associating with the shop model
