@@ -2,3 +2,6 @@
 
 # VSCode settings
 /.vscode
+
+# Secret keys for auth tokens
+.env
