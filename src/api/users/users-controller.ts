@@ -1,5 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
+// Response error helper
+import ResponseError from "../../helpers/ResponseError-helper";
+
 // Users service
 import usersService from "./users-service";
 
@@ -22,6 +25,25 @@ class UsersController {
             });
 
             res.json(paginatedUsers);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+
+    // Gets a user
+    async getUser(req: Request, res: Response, next: NextFunction) {
+        try {
+            const { userId } = req.params;
+
+            const user = await usersService.getUser(userId);
+
+            if (!user)
+                // 404 error
+                return next(new ResponseError(404, `User having id = ${userId} is not found`));
+
+            res.json(user);
         }
         catch (error) {
             next(error);

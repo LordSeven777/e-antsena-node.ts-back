@@ -44,6 +44,21 @@ class UsersService {
         return paginatedUsers;
     }
 
+
+    // Gets a user from database **********************************************
+    async getUser(userId: string | number, isTrusted: boolean = false) {
+        // Excuded fields
+        const excludedFields = ["password"];
+        if (!isTrusted) excludedFields.push("role", "email");
+
+        return await UserModel.findOne({
+            attributes: {
+                exclude: excludedFields
+            },
+            where: { userId }
+        });
+    }
+
 }
 
 export default new UsersService();
