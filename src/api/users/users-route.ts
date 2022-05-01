@@ -6,8 +6,7 @@ import usersController from "./users-controller";
 // Router app
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.send("Users!");
-});
+// Gets users under pagination
+router.get("/", usersController.getPaginatedUsers);
 
 export default router;
