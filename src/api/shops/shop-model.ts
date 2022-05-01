@@ -1,5 +1,8 @@
 import { Model, Optional, DataTypes, ModelAttributes } from "sequelize";
 
+// Shop photos config
+import { shopPhotosConfig } from "../../configs/photos-config";
+
 // Sequelize database connection instance
 import sequelize from "../../db/connection";
 
@@ -20,7 +23,7 @@ interface ShopAttributes {
 }
 
 // Shop attributes at creation time
-interface ShopCreationAttributes extends Optional<ShopAttributes, "shopId" | "photoPath" | "coverPhotoPath" | "isOpen"> {}
+interface ShopCreationAttributes extends Optional<ShopAttributes, "shopId" | "photoPath" | "coverPhotoPath" | "isOpen"> { }
 
 // Class for the shop model
 class ShopModel extends Model<ShopAttributes, ShopCreationAttributes> implements ShopAttributes {
@@ -56,9 +59,17 @@ const shopModelSchema: ModelAttributes<ShopModel, ShopAttributes> = {
     },
     photoPath: {
         type: DataTypes.STRING(255),
+        get() {
+            // Considering the application's URL
+            return shopPhotosConfig.getPhotoFullURL(this.getDataValue("photoPath"));
+        }
     },
     coverPhotoPath: {
         type: DataTypes.STRING(255),
+        get() {
+            // Considering the application's URL
+            return shopPhotosConfig.getPhotoFullURL(this.getDataValue("coverPhotoPath"));
+        }
     },
     address: {
         type: DataTypes.STRING(50),

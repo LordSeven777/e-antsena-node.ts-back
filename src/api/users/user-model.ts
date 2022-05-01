@@ -1,5 +1,8 @@
 import { Model, Optional, DataTypes, ModelAttributes } from "sequelize";
 
+// Photo config
+import { userPhotosConfig } from "../../configs/photos-config";
+
 // Sequelize database connection instance
 import sequelize from "../../db/connection";
 
@@ -16,7 +19,7 @@ interface UserAttributes {
 }
 
 // User attributes at creation time
-interface UserCreationAttributes extends Optional<UserAttributes, "userId" | "photoPath" | "role"> {}
+interface UserCreationAttributes extends Optional<UserAttributes, "userId" | "photoPath" | "role"> { }
 
 // Class for the user model
 class UserModel extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
@@ -55,6 +58,10 @@ const userModelSchema: ModelAttributes<UserModel, UserAttributes> = {
     },
     photoPath: {
         type: DataTypes.STRING(255),
+        get() {
+            // Considering the application's URL
+            return userPhotosConfig.getPhotoFullURL(this.getDataValue("photoPath"));
+        }
     },
     email: {
         type: DataTypes.STRING(50),

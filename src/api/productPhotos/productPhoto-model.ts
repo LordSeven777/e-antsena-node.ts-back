@@ -1,5 +1,8 @@
 import { Model, Optional, DataTypes, ModelAttributes } from "sequelize";
 
+// Product photos config
+import { productPhotosConfig } from "../../configs/photos-config";
+
 // The sequelize database connection instance
 import sequelize from "../../db/connection";
 
@@ -15,7 +18,7 @@ interface ProductPhotoAttributes {
 }
 
 // Interface for the product attributes at creation time
-interface ProductPhotoCreationAttributes extends Optional<ProductPhotoAttributes, "photoId" | "isMain"> {}
+interface ProductPhotoCreationAttributes extends Optional<ProductPhotoAttributes, "photoId" | "isMain"> { }
 
 // Class for the product photo model
 class ProductPhotoModel extends Model<ProductPhotoAttributes, ProductPhotoCreationAttributes> implements ProductPhotoAttributes {
@@ -38,7 +41,11 @@ const productPhotoModelSchema: ModelAttributes<ProductPhotoModel, ProductPhotoAt
     },
     path: {
         type: DataTypes.STRING(255),
-        allowNull: false
+        allowNull: false,
+        get() {
+            // Considering the application's URL
+            return productPhotosConfig.getPhotoFullURL(this.getDataValue("path"));
+        }
     },
     isMain: {
         type: DataTypes.BOOLEAN,

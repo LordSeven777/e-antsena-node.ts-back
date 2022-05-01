@@ -43,7 +43,7 @@ const BASE_STORAGE_PATH = path.join(__dirname, "../", "../", "static", "images")
 /* RESSOURCES' PHOTO CONFIG INSTANCES ****************************************/
 
 // User photos' config
-const userPhotosconfig = new PhotoConfig({
+const userPhotosConfig = new PhotoConfig({
     urlPath: `${BASE_URL_PATH}/users`,
     storagePath: path.join(BASE_STORAGE_PATH, "users")
 });
@@ -63,4 +63,4 @@ const shopPhotosConfig = new PhotoConfig({
 /*****************************************************************************/
 
 
-export { userPhotosconfig, productPhotosConfig, shopPhotosConfig };
+export { userPhotosConfig, productPhotosConfig, shopPhotosConfig };
