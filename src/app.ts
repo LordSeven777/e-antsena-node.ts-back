@@ -4,6 +4,9 @@ import express from "express";
 // Error handler middleware
 import errorHandlerMiddleware from "./middlewares/errorHandler-middle";
 
+// API routes
+import * as APIroutes from "./api";
+
 // Express app
 const app = express();
 
@@ -16,6 +19,9 @@ app.get("/", (req, res, next) => {
 
 // Static files
 app.use("/public", express.static(path.join(__dirname, "../", "static")));
+
+// Users api route
+app.use("/api/users", APIroutes.usersRoute);
 
 /*****************************************************************************/
 

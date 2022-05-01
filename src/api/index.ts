@@ -2,4 +2,7 @@
 ** This will be the entry point to all the API routes
 */
 
-export { };
+// API routes
+import usersRoute from "./users";
+
+export { usersRoute };
