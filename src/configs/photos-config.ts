@@ -1,5 +1,8 @@
 import path from "path";
 
+// Network config
+import networkConfig from "./network-config";
+
 
 /* TYPE DEFINITIONS **********************************************************/
 
@@ -21,6 +24,11 @@ class PhotoConfig implements PhotoConfigAttributes {
 
     getFileURL(filename: string): string {
         return `${this.urlPath}/${filename}`;
+    }
+
+    // Concats the path of a photo with the application's url
+    getPhotoFullURL(path: string | null): string | null {
+        return path ? `${networkConfig.url}${path}` : null
     }
 }
 
