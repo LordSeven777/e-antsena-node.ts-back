@@ -3,6 +3,7 @@
 */
 
 // API routes
+import authRoute from "./auth";
 import usersRoute from "./users";
 
-export { usersRoute };
+export { authRoute, usersRoute };

@@ -20,6 +20,9 @@ app.get("/", (req, res, next) => {
 // Static files
 app.use("/public", express.static(path.join(__dirname, "../", "static")));
 
+// API auth route
+app.use("/api/auth", APIroutes.authRoute);
+
 // Users api route
 app.use("/api/users", APIroutes.usersRoute);
 
