@@ -1,5 +1,8 @@
 import path from "path";
 
+
+/* TYPE DEFINITIONS **********************************************************/
+
 // Interface for a resource photo config attributes
 interface PhotoConfigAttributes {
     urlPath: string;
@@ -17,14 +20,33 @@ class PhotoConfig implements PhotoConfigAttributes {
     }
 
     getFileURL(filename: string): string {
-        return `${this.urlPath}${filename}`;
+        return `${this.urlPath}/${filename}`;
     }
 }
 
-// Product photos' config
-const productPhotosConfig: PhotoConfig = new PhotoConfig({
-    urlPath: "/public/images/products/",
-    storagePath: path.join(__dirname, "../", "../", "static", "products")
+/*****************************************************************************/
+
+
+// Contant values
+const BASE_URL_PATH = "/public/images";
+const BASE_STORAGE_PATH = path.join(__dirname, "../", "../", "static", "images");
+
+
+/* RESSOURCES' PHOTO CONFIG INSTANCES ****************************************/
+
+// User photos' config
+const userPhotosconfig = new PhotoConfig({
+    urlPath: `${BASE_URL_PATH}/users`,
+    storagePath: path.join(BASE_STORAGE_PATH, "users")
 });
 
-export { productPhotosConfig };
+// Product photos' config
+const productPhotosConfig = new PhotoConfig({
+    urlPath: `${BASE_URL_PATH}/products`,
+    storagePath: path.join(BASE_STORAGE_PATH, "products")
+});
+
+/*****************************************************************************/
+
+
+export { userPhotosconfig, productPhotosConfig };
