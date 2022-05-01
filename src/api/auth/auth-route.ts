@@ -6,8 +6,13 @@ import authController from "./auth-controller";
 // Router app
 const router = Router();
 
-router.get("/", (req, res) => {
-    res.send("Authentication - Authorization");
-});
+
+/* ROUTES ********************************************************************/
+
+// User signup
+router.get("/signup", authController.userSignup);
+
+/*****************************************************************************/
+
 
 export default router;
