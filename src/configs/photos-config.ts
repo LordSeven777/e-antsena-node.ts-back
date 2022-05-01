@@ -54,7 +54,13 @@ const productPhotosConfig = new PhotoConfig({
     storagePath: path.join(BASE_STORAGE_PATH, "products")
 });
 
+// Shop photos' config
+const shopPhotosConfig = new PhotoConfig({
+    urlPath: `${BASE_URL_PATH}/shops`,
+    storagePath: path.join(BASE_STORAGE_PATH, "shops")
+});
+
 /*****************************************************************************/
 
 
-export { userPhotosconfig, productPhotosConfig };
+export { userPhotosconfig, productPhotosConfig, shopPhotosConfig };
