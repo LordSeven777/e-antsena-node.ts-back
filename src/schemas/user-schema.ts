@@ -1,5 +1,8 @@
 import { Schema } from "express-validator";
 
+// Users service
+import { usersService } from "../api/users";
+
 // Regex for the valid user name
 const validUsernameSchema = /^('?[A-z]+'?\s?)+$/;
 
@@ -43,7 +46,15 @@ const userSchema: Schema = {
     email: {
         trim: true,
         notEmpty: { errorMessage: "E-mail address is empty" },
-        isEmail: { errorMessage: "E-mail address is not valid" }
+        isEmail: { errorMessage: "E-mail address is not valid" },
+        custom: {
+            // Email must be unique
+            async options(email) {
+                if (await usersService.checkIfEmailExists(email))
+                    throw new Error("E-mail is already being used");
+                return true;
+            }
+        }
     },
     password: {
         trim: true,
