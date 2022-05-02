@@ -10,9 +10,14 @@ class AuthController {
     // User signup
     async userSignup(req: Request, res: Response, next: NextFunction) {
         try {
-            // Token signing test
-            console.log(await authService.generateUserToken({ name: "John" }, "access"));
-            console.log(await authService.generateUserToken({ name: "John" }, "refresh"));
+            // Token verification test
+            const payload = { name: "John" };
+            const accessToken = await authService.generateUserToken(payload, "access");
+            const refreshToken = await authService.generateUserToken(payload, "refresh");
+            const accessPayload = await authService.verifyUserToken(accessToken, "access");
+            const refreshPayload = await authService.verifyUserToken(refreshToken, "refresh");
+            console.log(`Access: ${accessToken}`, `Refresh: ${refreshToken}`);
+            console.log(accessPayload, refreshPayload);
 
             res.send("user signed up");
         }
