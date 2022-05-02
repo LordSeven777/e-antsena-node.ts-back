@@ -13,7 +13,7 @@ import { connectToRedis } from "./redisClient";
 const server = http.createServer(app);
 
 // Bootstrapping database setups
-bootstrapDb();
+bootstrapDb(false, { alter: true });
 
 // Connecting to redis
 connectToRedis();
