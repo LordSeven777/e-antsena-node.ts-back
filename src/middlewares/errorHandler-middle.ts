@@ -11,12 +11,12 @@ interface ErrorResponseData {
 
 // Request error handler
 const errorHandlerMiddleware: ErrorRequestHandler = (err, req, res, next) => {
-    console.log(err.message || err);
     if (err instanceof ResponseError) {
         const error: ErrorResponseData = { message: err.message };
         if (err.payload) error.payload = err.payload;
         return res.status(err.status).send(error);
     }
+    console.log(err.message || err);
     next(err);
 }
 
