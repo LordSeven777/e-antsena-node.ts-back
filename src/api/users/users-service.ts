@@ -1,7 +1,8 @@
-import { Sequelize, Op, WhereOptions, Order } from "sequelize";
+import { Sequelize, Op, WhereOptions, Order, Optional } from "sequelize";
+import bcrypt from "bcrypt";
 
 // User model
-import UserModel, { UserAttributes } from "./user-model";
+import UserModel, { UserAttributes, UserCreationAttributes } from "./user-model";
 
 // Service get ops options interface
 import ServiceGetOptions from "../../types/ServiceGetOptions-interface";
@@ -10,6 +11,9 @@ import ServiceGetOptions from "../../types/ServiceGetOptions-interface";
 type SearchabeUserAttributes = {
     [property in keyof UserAttributes]?: UserAttributes[property]
 };
+
+// Type for user attributes without password
+type UserAttributesWoutPassword = Optional<UserAttributes, "password">;
 
 // Class for the users service
 class UsersService {
@@ -68,6 +72,19 @@ class UsersService {
     // Checks if an email address already exists ******************************
     async checkIfEmailExists(email: string): Promise<boolean> {
         return await UserModel.count({ where: { email } }) > 0;
+    }
+
+
+    // Saves a user to the database *******************************************
+    async saveUser(user: UserCreationAttributes) {
+        // Hashing the password
+        const saltRounds = 10;
+        user.password = await bcrypt.hash(user.password, saltRounds);
+
+        // Insertion to db
+        const addedUser = await UserModel.create(user);
+
+        return (addedUser.toJSON() as UserAttributesWoutPassword);
     }
 
 }
