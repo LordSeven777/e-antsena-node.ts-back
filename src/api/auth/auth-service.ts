@@ -2,11 +2,14 @@ import path from "path";
 import jwt, { SignOptions, JwtPayload } from "jsonwebtoken";
 import dotenv from "dotenv";
 
-// Accessing environment variables (for local development)
-dotenv.config({ path: path.join(__dirname, "../", ".env") });
+// The redis client
+import redisClient from "../../redisClient";
 
 // Type for the token type
 type TokenType = "access" | "refresh";
+
+// Accessing environment variables (for local development)
+dotenv.config({ path: path.join(__dirname, "../", ".env") });
 
 // Helper method for getting the secret key
 function getSecretKey(type: TokenType): string {
@@ -49,6 +52,24 @@ class AuthService {
             });
         });
     }
+
+
+    // Stores a refresh token *************************************************
+    async storeRefreshToken(token: string) {
+        await redisClient.sAdd('refreshTokens', token);
+    }
+
+
+    // Checks if a refresh token exists ***************************************
+    async checkIfRefreshTokenExists(token: string) {
+        return redisClient.sIsMember('refreshTokens', token);
+    }
+
+
+    // Deletes a refresh token ************************************************
+    async deleteRefreshToken(token: string) {
+        return redisClient.sRem('refreshTokens', token);
+    };
 
 }
 
