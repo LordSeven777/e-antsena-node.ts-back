@@ -4,7 +4,7 @@ import { Router } from "express"
 import authController from "./auth-controller";
 
 // Middlewares
-import { validateSignupUser } from "../../middlewares/validations/auth-validations";
+import { validateSignupUser, validateLoginCredentials } from "../../middlewares/validations/auth-validations";
 
 // Router app
 const router = Router();
@@ -16,7 +16,7 @@ const router = Router();
 router.post("/signup", validateSignupUser, authController.userSignup);
 
 // User login
-router.post("/login", authController.userLogin);
+router.post("/login", validateLoginCredentials, authController.userLogin);
 
 /*****************************************************************************/
 
