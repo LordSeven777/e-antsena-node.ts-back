@@ -10,6 +10,10 @@ class AuthController {
     // User signup
     async userSignup(req: Request, res: Response, next: NextFunction) {
         try {
+            // Token signing test
+            console.log(await authService.generateUserToken({ name: "John" }, "access"));
+            console.log(await authService.generateUserToken({ name: "John" }, "refresh"));
+
             res.send("user signed up");
         }
         catch (error) {
