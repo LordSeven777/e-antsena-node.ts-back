@@ -1,10 +1,15 @@
 import { Sequelize, Op, WhereOptions, Order } from "sequelize";
 
 // User model
-import UserModel from "./user-model";
+import UserModel, { UserAttributes } from "./user-model";
 
 // Service get ops options interface
 import ServiceGetOptions from "../../types/ServiceGetOptions-interface";
+
+// Type for searchable user attributes
+type SearchabeUserAttributes = {
+    [property in keyof UserAttributes]?: UserAttributes[property]
+};
 
 // Class for the users service
 class UsersService {
@@ -45,8 +50,8 @@ class UsersService {
     }
 
 
-    // Gets a user from database **********************************************
-    async getUser(userId: string | number, isTrusted: boolean = false) {
+    // Gets the first user having the specified fields from database **********
+    async getUserHaving(searchableFields: SearchabeUserAttributes, isTrusted: boolean = false) {
         // Excuded fields
         const excludedFields = ["password"];
         if (!isTrusted) excludedFields.push("role", "email");
@@ -55,7 +60,7 @@ class UsersService {
             attributes: {
                 exclude: excludedFields
             },
-            where: { userId }
+            where: searchableFields
         });
     }
 
