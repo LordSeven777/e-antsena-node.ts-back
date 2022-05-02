@@ -10,10 +10,9 @@ import * as APIroutes from "./api";
 // Express app
 const app = express();
 
-app.get("/", (req, res, next) => {
-    res.send("Echo!");
-});
-
+// Body parser
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 /* ROUTES *********************************************************************/
 
