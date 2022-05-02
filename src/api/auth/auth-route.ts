@@ -3,6 +3,9 @@ import { Router } from "express"
 // Auth controller
 import authController from "./auth-controller";
 
+// Middlewares
+import { validateSignupUser } from "../../middlewares/validations/auth-validations";
+
 // Router app
 const router = Router();
 
@@ -10,7 +13,7 @@ const router = Router();
 /* ROUTES ********************************************************************/
 
 // User signup
-router.get("/signup", authController.userSignup);
+router.get("/signup", validateSignupUser, authController.userSignup);
 
 /*****************************************************************************/
 
