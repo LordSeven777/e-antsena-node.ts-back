@@ -8,21 +8,24 @@ import ResponseError from "./ResponseError-helper";
 import ExpressMiddleware from "../types/ExpressMiddleware-type";
 
 // Basic express validation error handler
-const expressValidationErrorHandler = (req: Request, res: Response, next: NextFunction) => {
-    // Extraction of the validation errors
-    const errors = validationResult(req);
+const expressValidationErrorHandler = (errorMessage: string = "Validation failed") => {
+    return (req: Request, res: Response, next: NextFunction) => {
+        // Extraction of the validation errors
+        const errors = validationResult(req);
 
-    if (!errors.isEmpty())
-        // Throwing a bad request error
-        return next(new ResponseError(400, "Validation failed", errors.array()));
+        if (!errors.isEmpty()) {
+            // Throwing a bad request error
+            return next(new ResponseError(400, errorMessage, errors.array()));
+        }
 
-    next();
+        next();
+    }
 }
 
 // Express validation wrapper
-const expressValidationWrapper = (validationMiddlewares: ExpressMiddleware[]): ExpressMiddleware[] => [
+const expressValidationWrapper = (validationMiddlewares: ExpressMiddleware[], errorMessage?: string): ExpressMiddleware[] => [
     ...validationMiddlewares,
-    expressValidationErrorHandler
+    expressValidationErrorHandler(errorMessage)
 ];
 
 export default expressValidationWrapper;
