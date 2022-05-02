@@ -64,6 +64,12 @@ class UsersService {
         });
     }
 
+
+    // Checks if an email address already exists ******************************
+    async checkIfEmailExists(email: string): Promise<boolean> {
+        return await UserModel.count({ where: { email } }) > 0;
+    }
+
 }
 
 export default new UsersService();
