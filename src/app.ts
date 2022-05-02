@@ -1,5 +1,6 @@
 import path from "path";
 import express from "express";
+import cors from "cors";
 
 // Error handler middleware
 import errorHandlerMiddleware from "./middlewares/errorHandler-middle";
@@ -9,6 +10,9 @@ import * as APIroutes from "./api";
 
 // Express app
 const app = express();
+
+// CORS handling
+app.use(cors());
 
 // Body parser
 app.use(express.json());
