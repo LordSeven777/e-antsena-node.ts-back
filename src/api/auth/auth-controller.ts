@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 // Services
 import authService from "./auth-service";
-import { UserAttributes, usersService } from "../users";
+import { usersService } from "../users";
 
 // Interface for the user token payload
 interface UserTokenPayload {
@@ -49,6 +49,16 @@ class AuthController {
             delete responseData.user["password"];
 
             res.status(201).json(responseData);
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
+    // User login
+    async userLogin(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User logged in");
         }
         catch (error) {
             next(error);

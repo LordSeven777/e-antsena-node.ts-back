@@ -13,7 +13,10 @@ const router = Router();
 /* ROUTES ********************************************************************/
 
 // User signup
-router.get("/signup", validateSignupUser, authController.userSignup);
+router.post("/signup", validateSignupUser, authController.userSignup);
+
+// User login
+router.post("/login", authController.userLogin);
 
 /*****************************************************************************/
 
