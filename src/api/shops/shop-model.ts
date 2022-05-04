@@ -7,7 +7,7 @@ import { shopPhotosConfig } from "../../configs/photos-config";
 import sequelize from "../../db/connection";
 
 // User model
-import { UserModel } from "../users";
+import UserModel from "../users/user-model";
 
 // Interface for the shop attributes
 interface ShopAttributes {

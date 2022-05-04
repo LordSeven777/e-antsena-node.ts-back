@@ -1,8 +1,9 @@
 import { Sequelize, Op, WhereOptions, Order, Optional } from "sequelize";
 import bcrypt from "bcrypt";
 
-// User model
+// Models
 import UserModel, { UserAttributes, UserCreationAttributes } from "./user-model";
+import { ShopModel } from "../shops";
 
 // Service get ops options interface
 import ServiceGetOptions from "../../types/ServiceGetOptions-interface";
@@ -94,6 +95,12 @@ class UsersService {
         if (!userHavingEmail) return null;
         if (!await bcrypt.compare(password, userHavingEmail.password)) return null;
         return ({ ...userHavingEmail.toJSON() } as UserAttributesWoutPassword);
+    }
+
+
+    // Gets a user's shop *****************************************************
+    async getUserShop(userId: number) {
+        return await ShopModel.findOne({ where: { ownerId: userId } });
     }
 
 }
