@@ -87,6 +87,15 @@ class UsersService {
         return (addedUser.toJSON() as UserAttributesWoutPassword);
     }
 
+
+    // Finds a user by email and password *************************************
+    async findUserByEmailAndPassword(email: string, password: string): Promise<UserAttributesWoutPassword | null> {
+        const userHavingEmail = await UserModel.findOne({ where: { email } });
+        if (!userHavingEmail) return null;
+        if (!await bcrypt.compare(password, userHavingEmail.password)) return null;
+        return ({ ...userHavingEmail.toJSON() } as UserAttributesWoutPassword);
+    }
+
 }
 
 export default new UsersService();
