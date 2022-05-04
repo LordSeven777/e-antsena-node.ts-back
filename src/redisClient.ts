@@ -19,6 +19,7 @@ const redisClient = createClient(endpointOptions);
 // Connects to the redis database
 async function connectToRedis() {
     try {
+        await redisClient.connect();
         console.log(`Connected to Redis ...`);
     }
     catch (error: any) {
