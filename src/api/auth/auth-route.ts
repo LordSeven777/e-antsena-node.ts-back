@@ -5,6 +5,7 @@ import authController from "./auth-controller";
 
 // Middlewares
 import { validateSignupUser, validateLoginCredentials } from "../../middlewares/validations/auth-validations";
+import { authRouteUser } from "../../middlewares/routeAuth-middle";
 
 // Router app
 const router = Router();
@@ -19,7 +20,7 @@ router.post("/signup", validateSignupUser, authController.userSignup);
 router.post("/login", validateLoginCredentials, authController.userLogin);
 
 // User authentication from token
-router.get("/token-user", authController.authenticateUserFromToken);
+router.get("/token-user", authRouteUser(), authController.authenticateUserFromToken);
 
 /*****************************************************************************/
 
