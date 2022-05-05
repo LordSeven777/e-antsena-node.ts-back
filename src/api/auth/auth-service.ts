@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import redisClient from "../../redisClient";
 
 // Type for the token type
-type TokenType = "access" | "refresh";
+import TokenType from "../../types/TokenType-type";
 
 // Accessing environment variables (for local development)
 dotenv.config({ path: path.join(__dirname, "../", ".env") });
