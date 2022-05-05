@@ -18,6 +18,9 @@ router.post("/signup", validateSignupUser, authController.userSignup);
 // User login
 router.post("/login", validateLoginCredentials, authController.userLogin);
 
+// User authentication from token
+router.get("/token-user", authController.authenticateUserFromToken);
+
 /*****************************************************************************/
 
 

@@ -94,6 +94,16 @@ class AuthController {
         }
     }
 
+    // User authentication from access token
+    async authenticateUserFromToken(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("Auth user from token");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new AuthController();
