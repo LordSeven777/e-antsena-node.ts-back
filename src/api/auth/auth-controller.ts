@@ -134,7 +134,26 @@ class AuthController {
     // Renewal of an access token from a refresh token
     async accessTokenRenewal(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("Access token renewed");
+            const { authUser } = res.locals;
+
+            /* Getting the user a trusted action
+            ** since the requester's identitity comes from a token */
+            const user = await usersService.getUser(authUser.userId as number, true);
+
+            if (!user) return new ResponseError(404, `The user from token does not exist`);
+
+            // Getting the user's shop
+            const userShop = await usersService.getUserShop(authUser.userId as number);
+
+            // User token payload
+            const userTokenPayload: UserTokenPayload = {
+                userId: user.userId,
+                shopId: userShop?.shopId || null
+            }
+            // Getting the access token
+            const accessToken = await authService.generateUserToken(userTokenPayload, "access");
+
+            res.json({ accessToken });
         }
         catch (error) {
             next(error);
