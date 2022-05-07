@@ -100,7 +100,7 @@ class AuthController {
     // User authentication from access token
     async authenticateUserFromToken(req: Request, res: Response, next: NextFunction) {
         try {
-            const { authUser } = res.locals;
+            const { authUser, token } = res.locals;
 
             /* Getting the user a trusted action
             ** since the requester's identitity comes from a token
@@ -108,6 +108,10 @@ class AuthController {
             const user = await usersService.getUser(authUser.userId as number, true);
 
             if (!user) return new ResponseError(404, `The user from token does not exist`);
+
+            /* The previous refresh token should removed from from whitelist
+            ** to prevent from memory waste */
+            await authService.deleteRefreshToken(token as string);
 
             // Getting the user's shop
             const userShop = await usersService.getUserShop(authUser.userId as number);

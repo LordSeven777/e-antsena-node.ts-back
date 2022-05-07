@@ -20,10 +20,10 @@ router.post("/signup", validateSignupUser, authController.userSignup);
 router.post("/login", validateLoginCredentials, authController.userLogin);
 
 // User authentication from token
-router.get("/token-user", authRouteUser(), authController.authenticateUserFromToken);
+router.get("/token-user", authRouteUser("refresh"), authController.authenticateUserFromToken);
 
 // Access token renewal from refresh token
-router.get("/token", authRouteUser("refresh", true), authController.accessTokenRenewal);
+router.get("/token", authRouteUser("refresh"), authController.accessTokenRenewal);
 
 /*****************************************************************************/
 
