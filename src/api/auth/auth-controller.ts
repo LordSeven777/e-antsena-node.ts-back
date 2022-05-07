@@ -11,6 +11,7 @@ import { usersService } from "../users";
 interface UserTokenPayload {
     userId: number;
     shopId: number | null;
+    role: string;
 }
 
 // Class for the auth controller
@@ -31,6 +32,7 @@ class AuthController {
             // User token payload
             const userTokenPayload: UserTokenPayload = {
                 userId: addeduser.userId,
+                role: addeduser.role,
                 shopId: null // User does not own any shop at the time of signup
             }
             // Getting the tokens
@@ -75,7 +77,8 @@ class AuthController {
             // User token payload
             const userTokenPayload: UserTokenPayload = {
                 userId: authUser.userId,
-                shopId: userShop?.shopId || null
+                shopId: userShop?.shopId || null,
+                role: authUser.role
             }
             // Getting the tokens
             const accessToken = await authService.generateUserToken(userTokenPayload, "access");
@@ -112,7 +115,8 @@ class AuthController {
             // User token payload
             const userTokenPayload: UserTokenPayload = {
                 userId: user.userId,
-                shopId: userShop?.shopId || null
+                shopId: userShop?.shopId || null,
+                role: user.role
             }
             // Getting the tokens
             const accessToken = await authService.generateUserToken(userTokenPayload, "access");
@@ -148,7 +152,8 @@ class AuthController {
             // User token payload
             const userTokenPayload: UserTokenPayload = {
                 userId: user.userId,
-                shopId: userShop?.shopId || null
+                shopId: userShop?.shopId || null,
+                role: user.role
             }
             // Getting the access token
             const accessToken = await authService.generateUserToken(userTokenPayload, "access");
