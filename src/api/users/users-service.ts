@@ -8,11 +8,6 @@ import { ShopModel } from "../shops";
 // Service get ops options interface
 import ServiceGetOptions from "../../types/ServiceGetOptions-interface";
 
-// Type for searchable user attributes
-type SearchabeUserAttributes = {
-    [property in keyof UserAttributes]?: UserAttributes[property]
-};
-
 // Type for user attributes without password
 type UserAttributesWoutPassword = Optional<UserAttributes, "password">;
 
@@ -55,8 +50,8 @@ class UsersService {
     }
 
 
-    // Gets the first user having the specified fields from database **********
-    async getUserHaving(searchableFields: SearchabeUserAttributes, isTrusted: boolean = false) {
+    // Gets a user from database **********************************************
+    async getUser(userId: string | number, isTrusted: boolean = false) {
         // Excuded fields
         const excludedFields = ["password"];
         if (!isTrusted) excludedFields.push("role", "email");
@@ -65,12 +60,12 @@ class UsersService {
             attributes: {
                 exclude: excludedFields
             },
-            where: searchableFields
+            where: { userId }
         });
     }
 
 
-    // Checks if an email address already exists ******************************
+    // Checks if an email address already exists in database ******************
     async checkIfEmailExists(email: string): Promise<boolean> {
         return await UserModel.count({ where: { email } }) > 0;
     }

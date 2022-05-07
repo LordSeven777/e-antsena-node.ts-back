@@ -37,7 +37,7 @@ class UsersController {
         try {
             const { userId } = req.params;
 
-            const user = await usersService.getUserHaving({ userId: parseInt(userId) });
+            const user = await usersService.getUser(userId);
 
             if (!user)
                 // 404 error
