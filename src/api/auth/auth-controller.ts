@@ -172,7 +172,9 @@ class AuthController {
     // User logout
     async userLogout(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("User logged out");
+            const { token: refreshToken } = res.locals;
+            await authService.deleteRefreshToken(refreshToken as string);
+            res.sendStatus(204);
         }
         catch (error) {
             next(error);
