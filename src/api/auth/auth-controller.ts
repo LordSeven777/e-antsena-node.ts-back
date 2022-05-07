@@ -97,7 +97,34 @@ class AuthController {
     // User authentication from access token
     async authenticateUserFromToken(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("Auth user from token");
+            const { authUser } = res.locals;
+
+            /* Getting the user a trusted action
+            ** since the requester's identitity comes from a token
+            ** and because it's also part of an authentication process */
+            const user = await usersService.getUser(authUser.userId as number, true);
+
+            if (!user) return new ResponseError(404, `The user from token does not exist`);
+
+            // Getting the user's shop
+            const userShop = await usersService.getUserShop(authUser.userId as number);
+
+            // User token payload
+            const userTokenPayload: UserTokenPayload = {
+                userId: user.userId,
+                shopId: userShop?.shopId || null
+            }
+            // Getting the tokens
+            const accessToken = await authService.generateUserToken(userTokenPayload, "access");
+            const refreshToken = await authService.generateUserToken(userTokenPayload, "refresh");
+            // Storing the refresh token
+            await authService.storeRefreshToken(refreshToken);
+
+            res.json({
+                user: { ...user.toJSON(), shop: userShop },
+                accessToken,
+                refreshToken
+            });
         }
         catch (error) {
             next(error);
