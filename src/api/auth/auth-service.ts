@@ -29,7 +29,7 @@ class AuthService {
 
         /* An access token expires after 3days
         ** whereas a refresh token has no expiration date */
-        const expiration = type === 'access' ? { expiresIn: '3d' } : undefined;
+        const expiration = { expiresIn: '3d' };
 
         // JWT sign params
         const params: [object, string, SignOptions | undefined] = [
