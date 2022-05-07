@@ -131,6 +131,16 @@ class AuthController {
         }
     }
 
+    // Renewal of an access token from a refresh token
+    async accessTokenRenewal(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("Access token renewed");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new AuthController();

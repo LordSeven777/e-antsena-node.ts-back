@@ -22,6 +22,9 @@ router.post("/login", validateLoginCredentials, authController.userLogin);
 // User authentication from token
 router.get("/token-user", authRouteUser(), authController.authenticateUserFromToken);
 
+// Access token renewal from refresh token
+router.get("/token", authRouteUser("refresh", true), authController.accessTokenRenewal);
+
 /*****************************************************************************/
 
 
