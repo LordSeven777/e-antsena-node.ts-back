@@ -25,6 +25,9 @@ router.get("/token-user", authRouteUser("refresh"), authController.authenticateU
 // Access token renewal from refresh token
 router.get("/token", authRouteUser("refresh"), authController.accessTokenRenewal);
 
+// User logout
+router.delete("/logout", authRouteUser("refresh"), authController.userLogout);
+
 /*****************************************************************************/
 
 

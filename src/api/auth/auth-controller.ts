@@ -169,6 +169,16 @@ class AuthController {
         }
     }
 
+    // User logout
+    async userLogout(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User logged out");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new AuthController();
