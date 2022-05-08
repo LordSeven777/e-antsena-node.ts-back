@@ -127,6 +127,12 @@ class UsersService {
         return user;
     }
 
+
+    // Deletes an existing user from database *********************************
+    async deleteExistingUser(user: UserModel) {
+        await user.destroy();
+    }
+
 }
 
 export default new UsersService();
