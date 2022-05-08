@@ -56,9 +56,10 @@ class UsersService {
 
 
     // Gets a user from database **********************************************
-    async getUser(userId: string | number, isTrusted: boolean = false) {
+    async getUser(userId: string | number, isTrusted: boolean = false, includePassword: boolean = false) {
         // Excuded fields
-        const excludedFields = ["password"];
+        const excludedFields = [];
+        if (!includePassword) excludedFields.push("password");
         if (!isTrusted) excludedFields.push("role", "email");
 
         return await UserModel.findOne({
