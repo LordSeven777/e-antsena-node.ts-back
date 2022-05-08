@@ -5,7 +5,11 @@ import usersController from "./users-controller";
 
 // Middlewares
 import { authRouteUser, requireAuthenticUserFromParam } from "../../middlewares/routeAuth-middle";
-import { validateUserIdentityData, validateUserEmailData } from "../../middlewares/validations/users-validations";
+import {
+    validateUserIdentityData,
+    validateUserEmailData,
+    validateUserPasswordData
+} from "../../middlewares/validations/users-validations";
 
 // Router app
 const router = Router();
@@ -26,7 +30,7 @@ router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, validateU
 router.patch("/:userId/email", authRouteUser(), requireAuthenticUserFromParam, validateUserEmailData, usersController.editUserEmail);
 
 // Edits a user's email
-router.patch("/:userId/password", authRouteUser(), requireAuthenticUserFromParam, usersController.editUserPassword);
+router.patch("/:userId/password", authRouteUser(), requireAuthenticUserFromParam, validateUserPasswordData, usersController.editUserPassword);
 
 /*****************************************************************************/
 
