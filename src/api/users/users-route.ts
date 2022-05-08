@@ -5,6 +5,7 @@ import usersController from "./users-controller";
 
 // Middlewares
 import { authRouteUser, requireAuthenticUserFromParam } from "../../middlewares/routeAuth-middle";
+import { validateUserIdentityData } from "../../middlewares/validations/users-validations";
 
 // Router app
 const router = Router();
@@ -19,7 +20,7 @@ router.get("/", usersController.getPaginatedUsers);
 router.get("/:userId", usersController.getUser);
 
 // Edits a user's identity
-router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, usersController.editUserIdentity);
+router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, validateUserIdentityData, usersController.editUserIdentity);
 
 /*****************************************************************************/
 
