@@ -50,6 +50,17 @@ class UsersController {
         }
     }
 
+
+    // Edits a user's identity data
+    async editUserIdentity(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User's indentity edidted");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new UsersController();
