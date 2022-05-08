@@ -40,4 +40,23 @@ const authRouteUser = (tokenType: TokenType = "access", isRequired: boolean = tr
     }
 }
 
-export { authRouteUser };
+/* Middlewares that verifies the authenticated user's authenticity
+** in regards to the requested user id in request params */
+const requireAuthenticUserFromParam = (req: Request, res: Response, next: NextFunction) => {
+    const { authUser } = res.locals;
+    const { userId } = req.params;
+
+    /* The userId param must exist */
+    if (!userId) return next(new ResponseError(400, "user id parameter is not specified"));
+
+    /* The user must be authenticated from an access token */
+    if (!authUser) return next(new ResponseError(401, "Access-token is required"));
+
+    /* The authenticated user id and the user id specified in params must be the same */
+    if (authUser.userId !== parseInt(userId))
+        return next(new ResponseError(403, "Permission to request this resource is denied"));
+
+    next();
+}
+
+export { authRouteUser, requireAuthenticUserFromParam };
