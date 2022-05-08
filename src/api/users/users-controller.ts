@@ -77,7 +77,16 @@ class UsersController {
     // Edits a user's email
     async editUserEmail(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("User's email edited");
+            const { userId } = req.params;
+
+            const editedUser = await usersService.editUser(userId, {
+                email: req.body.email
+            });
+
+            if (!editedUser)
+                return next(new ResponseError(404, `User having id = ${userId} does not exist`));
+
+            res.json(editedUser);
         }
         catch (error) {
             next(error);
