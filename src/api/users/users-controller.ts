@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 
 // Response error helper
 import ResponseError from "../../helpers/ResponseError-helper";
+import UserModel from "./user-model";
 
 // Users service
 import usersService from "./users-service";
@@ -54,7 +55,18 @@ class UsersController {
     // Edits a user's identity data
     async editUserIdentity(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("User's indentity edidted");
+            const { userId } = req.params;
+
+            const editedUser = await usersService.editUserIdentity(userId, {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                gender: req.body.gender,
+            });
+
+            if (!editedUser)
+                return next(new ResponseError(404, `User having id = ${userId} does not exist`));
+
+            res.json(editedUser);
         }
         catch (error) {
             next(error);

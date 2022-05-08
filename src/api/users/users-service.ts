@@ -98,6 +98,24 @@ class UsersService {
         return await ShopModel.findOne({ where: { ownerId: userId } });
     }
 
+
+    // Edits a user's identity data in database *******************************
+    async editUserIdentity(userId: string | number, identityData: Record<"firstname" | "lastname" | "gender", string>): Promise<UserModel | null> {
+        const user = await UserModel.findByPk(userId, {
+            attributes: { exclude: ["password"] } // Password field omitted for security reasons
+        });
+        if (!user) return null;
+
+        user.firstname = identityData.firstname;
+        user.lastname = identityData.lastname;
+        user.gender = identityData.gender;
+
+        // Saving changes in db
+        await user.save();
+
+        return user;
+    }
+
 }
 
 export default new UsersService();
