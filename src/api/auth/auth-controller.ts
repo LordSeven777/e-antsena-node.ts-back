@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import bcrypt from "bcrypt";
 
 // Response error helper
 import ResponseError from "../../helpers/ResponseError-helper";
@@ -184,7 +185,24 @@ class AuthController {
     // User account deletion
     async userAccountDeletion(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("User deleted");
+            const { authUser, token: refreshToken } = res.locals;
+            const password = req.body.password.trim();
+
+            const user = await usersService.getUser(authUser.userId, true, true);
+
+            if (!user) return next(new ResponseError(404, `The user from token does not exist`));
+
+            if (!password) return next(new ResponseError(400, `Password is empty`));
+
+            console.log(password, user.password);
+            if (!await bcrypt.compare(password, user.password))
+                return next(new ResponseError(403, `Password is wrong`));
+
+            await usersService.deleteExistingUser(user);
+
+            await authService.deleteRefreshToken(refreshToken as string);
+
+            res.sendStatus(204);
         }
         catch (error) {
             next(error);
