@@ -93,6 +93,17 @@ class UsersController {
         }
     }
 
+
+    // Edits a user's password
+    async editUserPassword(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User's password edited");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new UsersController();

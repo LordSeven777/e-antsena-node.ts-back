@@ -25,6 +25,9 @@ router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, validateU
 // Edits a user's email
 router.patch("/:userId/email", authRouteUser(), requireAuthenticUserFromParam, validateUserEmailData, usersController.editUserEmail);
 
+// Edits a user's email
+router.patch("/:userId/password", authRouteUser(), requireAuthenticUserFromParam, usersController.editUserPassword);
+
 /*****************************************************************************/
 
 
