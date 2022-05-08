@@ -57,7 +57,7 @@ class UsersController {
         try {
             const { userId } = req.params;
 
-            const editedUser = await usersService.editUserIdentity(userId, {
+            const editedUser = await usersService.editUser(userId, {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
                 gender: req.body.gender,
