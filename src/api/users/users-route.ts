@@ -4,7 +4,7 @@ import { Router } from "express";
 import usersController from "./users-controller";
 
 // Middlewares
-import { authRouteUser } from "../../middlewares/routeAuth-middle";
+import { authRouteUser, requireAuthenticUserFromParam } from "../../middlewares/routeAuth-middle";
 
 // Router app
 const router = Router();
@@ -19,7 +19,7 @@ router.get("/", usersController.getPaginatedUsers);
 router.get("/:userId", usersController.getUser);
 
 // Edits a user's identity
-router.put("/:userId", authRouteUser(), usersController.editUserIdentity);
+router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, usersController.editUserIdentity);
 
 /*****************************************************************************/
 
