@@ -73,6 +73,17 @@ class UsersController {
         }
     }
 
+
+    // Edits a user's email
+    async editUserEmail(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User's email edited");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new UsersController();

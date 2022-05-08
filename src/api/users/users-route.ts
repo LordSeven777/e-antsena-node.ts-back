@@ -22,6 +22,9 @@ router.get("/:userId", usersController.getUser);
 // Edits a user's identity
 router.put("/:userId", authRouteUser(), requireAuthenticUserFromParam, validateUserIdentityData, usersController.editUserIdentity);
 
+// Edits a user's email
+router.patch("/:userId/email", authRouteUser(), requireAuthenticUserFromParam, usersController.editUserEmail);
+
 /*****************************************************************************/
 
 
