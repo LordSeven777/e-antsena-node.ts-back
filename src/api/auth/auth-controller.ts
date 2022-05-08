@@ -181,6 +181,16 @@ class AuthController {
         }
     }
 
+    // User account deletion
+    async userAccountDeletion(req: Request, res: Response, next: NextFunction) {
+        try {
+            res.send("User deleted");
+        }
+        catch (error) {
+            next(error);
+        }
+    }
+
 }
 
 export default new AuthController();

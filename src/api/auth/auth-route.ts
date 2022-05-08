@@ -28,6 +28,9 @@ router.get("/token", authRouteUser("refresh"), authController.accessTokenRenewal
 // User logout
 router.delete("/logout", authRouteUser("refresh"), authController.userLogout);
 
+// User account deletion
+router.delete("/delete-user", authRouteUser("refresh"), authController.userAccountDeletion);
+
 /*****************************************************************************/
 
 
