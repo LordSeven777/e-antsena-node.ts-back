@@ -97,7 +97,16 @@ class UsersController {
     // Edits a user's password
     async editUserPassword(req: Request, res: Response, next: NextFunction) {
         try {
-            res.send("User's password edited");
+            const { userId } = req.params;
+
+            const editedUser = await usersService.editUser(userId, {
+                password: req.body.password
+            });
+
+            if (!editedUser)
+                return next(new ResponseError(404, `User having id = ${userId} does not exist`));
+
+            res.sendStatus(204);
         }
         catch (error) {
             next(error);
