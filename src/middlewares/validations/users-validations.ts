@@ -13,4 +13,7 @@ const validateUserIdentityData = expressValidationWrapper(checkSchema({
     gender: userSchema.gender,
 }));
 
-export { validateUserIdentityData };
+// Validates the user's email data
+const validateUserEmailData = expressValidationWrapper(checkSchema({ email: userSchema.email }));
+
+export { validateUserIdentityData, validateUserEmailData };
